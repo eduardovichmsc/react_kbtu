@@ -4,7 +4,7 @@ type ProjectItem = {
   title: string;
   img: string;
   body: string;
-  stack: string;
+  stack: string[];
 };
 
 export const ProjectItem = ({
