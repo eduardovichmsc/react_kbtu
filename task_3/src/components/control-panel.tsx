@@ -7,7 +7,7 @@ export const ControlPanel = ({
   sortOrder,
   setSortOrder,
   isReversed,
-  setIsReversed
+  setIsReversed,
 }: any) => {
   const [newTaskTitle, setNewTaskTitle] = useState<any>("");
   const [newTaskPriority, setNewTaskPriority] = useState<any>("Medium");
@@ -26,20 +26,24 @@ export const ControlPanel = ({
       <div className="flex flex-col md:flex-row md:items-end gap-4">
         <form onSubmit={handleSubmit} className="flex-1 flex gap-3 items-end">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-            <input 
-              type="text" 
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Title
+            </label>
+            <input
+              type="text"
               value={newTaskTitle}
-              onChange={e => setNewTaskTitle(e.target.value)}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
               placeholder="Type here"
               className="w-full border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Priority</label>
-            <select 
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Priority
+            </label>
+            <select
               value={newTaskPriority}
-              onChange={e => setNewTaskPriority(e.target.value)}
+              onChange={(e) => setNewTaskPriority(e.target.value)}
               className="w-full border border-slate-300 px-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="Low">Low</option>
@@ -47,7 +51,7 @@ export const ControlPanel = ({
               <option value="High">High</option>
             </select>
           </div>
-          <button 
+          <button
             type="submit"
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 transition"
           >
@@ -60,9 +64,9 @@ export const ControlPanel = ({
       <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-100">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium text-slate-700">Filter:</span>
-          <select 
+          <select
             value={filter}
-            onChange={e => setFilter(e.target.value)}
+            onChange={(e) => setFilter(e.target.value)}
             className="border border-slate-300 px-2 py-1 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="All">All</option>
@@ -74,9 +78,9 @@ export const ControlPanel = ({
 
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium text-slate-700">Sort:</span>
-          <select 
+          <select
             value={sortOrder}
-            onChange={e => setSortOrder(e.target.value)}
+            onChange={(e) => setSortOrder(e.target.value)}
             className="border border-slate-300 px-2 py-1 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="Default">Default</option>
@@ -85,16 +89,18 @@ export const ControlPanel = ({
           </select>
         </div>
 
-        <div className="flex items-center gap-2 ml-auto">
-          <button 
+        {/* <div className="flex items-center gap-2 ml-auto">
+          <button
             onClick={() => setIsReversed(!isReversed)}
             className={`text-sm px-3 py-1.5 font-medium border transition-colors ${
-              isReversed ? "bg-slate-800 text-white border-slate-800" : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+              isReversed
+                ? "bg-slate-800 text-white border-slate-800"
+                : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
             }`}
           >
             {isReversed ? "Un-reverse List" : "Reverse List"}
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
