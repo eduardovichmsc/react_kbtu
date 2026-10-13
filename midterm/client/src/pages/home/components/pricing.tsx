@@ -55,7 +55,7 @@ export const HomePricing = () => {
         <div>
           <div className="flex items-center gap-4 mb-4">
             <span className="w-12 h-[1px] bg-[#bfb3a0]" />
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
               Прайс лист
             </span>
           </div>

@@ -2,6 +2,7 @@ import { PATHS } from "@/shared/config/paths";
 import type { PricingPackage } from "@/shared/types";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import CustomLink from "@/shared/components/custom-link";
 
 interface PricingCardProps {
   pkg: PricingPackage;
@@ -48,10 +49,10 @@ export const PricingCard = ({ pkg, index }: PricingCardProps) => {
 
         {/* Price */}
         <div className="py-8 border-t border-white/10 border-b mb-8">
-          <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block mb-2">
+          <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-2">
             Бюджет
           </span>
-          <p className="text-3xl md:text-4xl font-mono text-white">
+          <p className="text-3xl md:text-4xl text-white">
             {pkg.price}
           </p>
         </div>
@@ -70,15 +71,13 @@ export const PricingCard = ({ pkg, index }: PricingCardProps) => {
         </ul>
 
         {/* CTA */}
-        <a href={`${PATHS.home}#${PATHS.anchors.contacts}`} className="w-full">
-          <button
-            type="button"
-            className="w-full py-4 border border-white/20 text-xs uppercase tracking-[0.2em] hover:bg-[#bfb3a0] hover:text-black hover:border-[#bfb3a0] transition-all duration-300 flex items-center justify-center gap-2 group/btn cursor-pointer"
-          >
-            Заказать
-            <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-          </button>
-        </a>
+        <CustomLink
+          to={`${PATHS.home}#${PATHS.anchors.contacts}`}
+          className="w-full py-4 border border-white/20 text-xs uppercase tracking-[0.2em] hover:bg-[#bfb3a0] hover:text-black hover:border-[#bfb3a0] transition-all duration-300 flex items-center justify-center gap-2 group/btn cursor-pointer"
+        >
+          <span>Заказать</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+        </CustomLink>
       </div>
     </motion.div>
   );

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { ArrowDownRight } from "lucide-react";
 import { motion, useScroll, useTransform, type Variants } from "motion/react";
-import { useLenis } from "lenis/react";
 import { PATHS } from "@/shared/config/paths";
+import CustomLink from "@/shared/components/custom-link";
 
 const content = {
-  tagline: "HoReCa & Общественные пространства",
+  tagline: "Интерьеры & Общественные пространства",
   heading: {
     line1: "Чувство",
     line2: "Места",
@@ -17,8 +17,8 @@ const content = {
     ending: "акцентным декором.",
   },
   cta: {
-    text: "Обсудить проект",
-    link: PATHS.anchors.contacts,
+    text: "Посмотреть примеры",
+    link: PATHS.anchors.shop,
   },
   image: {
     src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop",
@@ -26,7 +26,7 @@ const content = {
   },
   badge: {
     top: "Для",
-    middle: "HoReCa",
+    middle: "Дома &",
     bottom: "Бизнеса",
   },
   scrollIndicator: "Далее",
@@ -34,7 +34,6 @@ const content = {
 
 export const HomeHero = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const lenis = useLenis();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -57,20 +56,6 @@ export const HomeHero = () => {
     }),
   };
 
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-
-    if (lenis) {
-      lenis.scrollTo(`#${id}`, {
-        duration: 1.5,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-    } else {
-      const element = document.getElementById(id);
-      element?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section
       ref={containerRef}
@@ -90,7 +75,7 @@ export const HomeHero = () => {
             className="flex items-center gap-4 mb-6 md:mb-10"
           >
             <span className="w-12 h-px bg-[#bfb3a0]" />
-            <span className="text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
+            <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-[#bfb3a0]">
               {content.tagline}
             </span>
           </motion.div>
@@ -149,9 +134,8 @@ export const HomeHero = () => {
             transition={{ delay: 1.5, duration: 1 }}
             className="mt-12 flex items-center gap-4 group cursor-pointer w-fit"
           >
-            <a
-              href={`#${content.cta.link}`}
-              onClick={(e) => handleScroll(e, content.cta.link)}
+            <CustomLink
+              to={`/#${content.cta.link}`}
               className="flex items-center gap-4"
             >
               <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#bfb3a0] group-hover:border-[#bfb3a0] transition-all duration-500">
@@ -160,7 +144,7 @@ export const HomeHero = () => {
               <span className="text-xs uppercase tracking-[0.2em] text-white/60 group-hover:text-white transition-colors">
                 {content.cta.text}
               </span>
-            </a>
+            </CustomLink>
           </motion.div>
         </motion.div>
 

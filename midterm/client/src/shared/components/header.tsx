@@ -2,16 +2,13 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { Heart, Menu, X, ArrowUpRight } from "lucide-react";
 import { useLenis } from "lenis/react";
-import { Link, useLocation, useNavigate } from "react-router";
 import useFavoritesStore from "../store/favorites";
 import { navLinks, PATHS } from "../config/paths";
-import type { NavLinkItem } from "../types";
+import CustomLink from "./custom-link";
+import { cn } from "@/utils/cn";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const location = useLocation();
-  const navigate = useNavigate();
   const { count: favoritesCount, openDrawer } = useFavoritesStore();
   const lenis = useLenis();
 
@@ -24,37 +21,6 @@ export default function Header() {
       document.body.style.overflow = "unset";
     }
   }, [isOpen, lenis]);
-
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    link: NavLinkItem,
-  ) => {
-    setIsOpen(false);
-
-    if (link.isExternalRoute) {
-      return;
-    }
-
-    if (link.href.includes("#")) {
-      const [path, hash] = link.href.split("#");
-      const targetPath = path || "/";
-
-      if (location.pathname === targetPath) {
-        e.preventDefault();
-        if (lenis) {
-          lenis.scrollTo(`#${hash}`, {
-            duration: 1.5,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          });
-        } else {
-          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-        }
-      } else {
-        e.preventDefault();
-        navigate(link.href);
-      }
-    }
-  };
 
   const menuVariants: Variants = {
     initial: { clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" },
@@ -90,48 +56,34 @@ export default function Header() {
         }`}
       >
         <div className="max-w-[1600px] mx-auto w-full flex justify-between items-center">
-          <Link
+          <CustomLink
             to={PATHS.home}
             className="text-xl font-bold tracking-tighter uppercase font-serif cursor-pointer z-50 bg-transparent border-none text-inherit p-0"
-            onClick={() => {
-              setIsOpen(false);
-              if (location.pathname === PATHS.home) {
-                lenis?.scrollTo(0, { duration: 1.5 });
-              }
-            }}
+            onClick={() => setIsOpen(false)}
           >
             Aura.
-          </Link>
+          </CustomLink>
 
           <nav className="hidden md:flex gap-8 text-xs uppercase tracking-widest font-medium">
-            {navLinks.map((link) => {
-              const isCurrentPage =
-                link.isExternalRoute && location.pathname === link.href;
-              return (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className={`transition-colors relative group ${
-                    isCurrentPage ? "text-white" : "hover:text-white"
-                  }`}
-                >
-                  {link.name}
-                  <span
-                    className={`absolute -bottom-1 left-0 h-[1px] bg-white transition-all duration-300 ${
-                      isCurrentPage ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <CustomLink
+                key={link.name}
+                to={link.href}
+                className="transition-colors hover:text-white relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 h-[1px] bg-white transition-all duration-300 w-0 group-hover:w-full" />
+              </CustomLink>
+            ))}
           </nav>
 
           <div className="flex gap-4 items-center z-50">
             {/* Кнопка открытия избранного */}
             <button
               type="button"
-              className="relative cursor-pointer group bg-transparent border-none p-1 text-inherit"
+              className={cn(
+                "relative cursor-pointer group bg-transparent border-none p-1 pr-0 text-inherit",
+              )}
               onClick={openDrawer}
               aria-label="Открыть избранное"
             >
@@ -141,7 +93,7 @@ export default function Header() {
                 }`}
               />
               {favoritesCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-[#bfb3a0] text-black text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
+                <span className="absolute -top-1.5 right-3 bg-[#bfb3a0] text-black text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
                   {favoritesCount}
                 </span>
               )}
@@ -195,14 +147,14 @@ export default function Header() {
                 {navLinks.map((link, index) => (
                   <div key={link.name} className="overflow-hidden">
                     <motion.div custom={index} variants={linkVariants}>
-                      <Link
+                      <CustomLink
                         to={link.href}
-                        onClick={(e) => handleNavClick(e, link)}
+                        onClick={() => setIsOpen(false)}
                         className="text-5xl font-serif text-[#e3e1dc] hover:text-[#bfb3a0] transition-colors inline-flex items-center gap-4 group"
                       >
                         {link.name}
                         <ArrowUpRight className="w-6 h-6 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#bfb3a0]" />
-                      </Link>
+                      </CustomLink>
                     </motion.div>
                   </div>
                 ))}
@@ -216,7 +168,7 @@ export default function Header() {
                 }}
                 className="absolute bottom-10 left-0 text-[#bfb3a0]"
               >
-                <p className="text-xs uppercase tracking-widest mb-2 font-mono opacity-50">
+                <p className="text-xs uppercase tracking-widest mb-2 opacity-50">
                   Contacts
                 </p>
                 <p className="text-sm font-light">hello@aura.decor</p>

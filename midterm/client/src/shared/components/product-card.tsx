@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { Heart, CheckCircle2 } from "lucide-react";
+import { Heart } from "lucide-react";
 import type { Product } from "@/shared/types";
 import useFavoritesStore from "@/shared/store/favorites";
 import { PATHS } from "@/shared/config/paths";
@@ -62,24 +62,9 @@ export const ProductCard = ({
 
         {/* BADGES */}
         <div className="absolute top-4 left-4 z-20 flex flex-col gap-1.5 pointer-events-none">
-          <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-neutral-300">
+          <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-neutral-300">
             {product.category}
           </span>
-
-          {/* Дополнительный бейдж статуса наличия для catalog типа */}
-          {cardType === "catalog" && (
-            <>
-              {product.inStock ? (
-                <span className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 bg-emerald-950/70 border border-emerald-600/30 text-emerald-300 w-fit flex items-center gap-1">
-                  <CheckCircle2 className="w-2.5 h-2.5" />В наличии
-                </span>
-              ) : (
-                <span className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 bg-neutral-800/80 border border-white/10 text-neutral-400 w-fit">
-                  Под заказ
-                </span>
-              )}
-            </>
-          )}
         </div>
       </div>
 
@@ -101,7 +86,7 @@ export const ProductCard = ({
               </h3>
             </Link>
             <span
-              className={`font-mono text-[#bfb3a0] shrink-0 font-medium ${
+              className={`text-[#bfb3a0] shrink-0 font-medium ${
                 cardType === "catalog" ? "text-base" : "text-sm"
               }`}
             >
@@ -109,7 +94,7 @@ export const ProductCard = ({
             </span>
           </div>
 
-          <p className="text-xs font-mono text-neutral-400 uppercase tracking-wider mb-3">
+          <p className="text-xs text-neutral-400 uppercase tracking-wider mb-3">
             {product.specs}
           </p>
 

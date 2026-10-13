@@ -4,10 +4,6 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   Heart,
   ArrowLeft,
-  CheckCircle2,
-  Sparkles,
-  ShieldCheck,
-  Truck,
   Layers,
   ArrowRight,
   PackageOpen,
@@ -15,21 +11,43 @@ import {
 import { allProducts } from "@/shared/data/products";
 import useFavoritesStore from "@/shared/store/favorites";
 import { Breadcrumbs } from "@/shared/components/breadcrumbs";
+import { CustomLink } from "@/shared/components/custom-link";
 import { PATHS } from "@/shared/config/paths";
 import { useLenis } from "lenis/react";
+
+import { api } from "@/shared/api/api-client";
+import type { Product } from "@/shared/types";
 
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const lenis = useLenis();
   const { ids, toggleFavorite } = useFavoritesStore();
 
-  const product = useMemo(() => {
+  const [product, setProduct] = useState<Product | null>(() => {
     const numericId = Number(id);
-    return allProducts.find((p) => p.id === numericId);
+    return allProducts.find((p) => p.id === numericId) ?? null;
+  });
+
+  useEffect(() => {
+    const numericId = Number(id);
+    if (!numericId) return;
+
+    let isMounted = true;
+    api.getProductById(numericId).then((data) => {
+      if (isMounted && data) {
+        setProduct(data);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
-  const [userSelectedImage, setUserSelectedImage] = useState<{ productId: number; url: string } | null>(null);
-  const [requestSent, setRequestSent] = useState(false);
+  const [userSelectedImage, setUserSelectedImage] = useState<{
+    productId: number;
+    url: string;
+  } | null>(null);
 
   const activeImage =
     userSelectedImage && userSelectedImage.productId === product?.id
@@ -48,22 +66,22 @@ export const ProductPage = () => {
   // Похожие товары из той же категории
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return allProducts
-      .filter((p) => p.id !== product.id)
-      .slice(0, 3);
+    return allProducts.filter((p) => p.id !== product.id).slice(0, 3);
   }, [product]);
 
   if (!product) {
     return (
       <div className="min-h-screen bg-[#0e0d0c] text-[#e3e1dc] pt-40 pb-32 px-4 md:px-12 flex flex-col items-center justify-center text-center">
         <PackageOpen className="w-16 h-16 stroke-[1] text-neutral-600 mb-6" />
-        <h1 className="text-4xl md:text-5xl font-serif mb-4">Предмет не найден</h1>
-        <p className="text-sm font-mono text-neutral-400 max-w-md mb-8">
+        <h1 className="text-4xl md:text-5xl font-serif mb-4">
+          Предмет не найден
+        </h1>
+        <p className="text-sm text-neutral-400 max-w-md mb-8">
           Возможно, этот предмет был снят с производства или ссылка устарела.
         </p>
         <Link
           to={PATHS.catalog}
-          className="inline-flex items-center gap-3 px-8 py-4 bg-[#bfb3a0] text-black text-xs font-mono uppercase tracking-[0.2em] font-medium hover:bg-white transition-colors"
+          className="inline-flex items-center gap-3 px-8 py-4 bg-[#bfb3a0] text-black text-xs uppercase tracking-[0.2em] font-medium hover:bg-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Вернуться в каталог
@@ -73,12 +91,10 @@ export const ProductPage = () => {
   }
 
   const isFav = ids.includes(product.id);
-  const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.img];
-
-  const handleRequestQuote = () => {
-    setRequestSent(true);
-    setTimeout(() => setRequestSent(false), 4000);
-  };
+  const gallery =
+    product.gallery && product.gallery.length > 0
+      ? product.gallery
+      : [product.img];
 
   return (
     <div className="min-h-screen bg-[#0e0d0c] text-[#e3e1dc] pt-28 md:pt-36 pb-32 px-4 md:px-12">
@@ -115,19 +131,9 @@ export const ProductPage = () => {
 
               {/* Status Badges */}
               <div className="absolute top-6 left-6 z-10 flex flex-col gap-2">
-                <span className="text-[11px] font-mono uppercase tracking-widest px-3 py-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-neutral-300">
+                <span className="text-[11px] uppercase tracking-widest px-3 py-1.5 bg-black/70 backdrop-blur-md border border-white/15 text-neutral-300">
                   {product.category}
                 </span>
-                {product.inStock ? (
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 bg-emerald-950/80 border border-emerald-600/30 text-emerald-300 flex items-center gap-1.5 w-fit">
-                    <CheckCircle2 className="w-3 h-3" />
-                    В наличии
-                  </span>
-                ) : (
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 bg-neutral-800/80 border border-white/15 text-neutral-400 w-fit">
-                    Под заказ
-                  </span>
-                )}
               </div>
             </div>
 
@@ -141,7 +147,10 @@ export const ProductPage = () => {
                       key={idx}
                       type="button"
                       onClick={() =>
-                        setUserSelectedImage({ productId: product.id, url: imgUrl })
+                        setUserSelectedImage({
+                          productId: product.id,
+                          url: imgUrl,
+                        })
                       }
                       className={`relative aspect-[4/5] overflow-hidden border transition-all cursor-pointer ${
                         isSelected
@@ -166,7 +175,7 @@ export const ProductPage = () => {
             <div>
               <div className="flex items-center gap-4 mb-4">
                 <span className="w-8 h-px bg-[#bfb3a0]" />
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
+                <span className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
                   {product.specs}
                 </span>
               </div>
@@ -175,12 +184,12 @@ export const ProductPage = () => {
                 {product.name}
               </h1>
 
-              <div className="py-6 border-y border-white/10 mb-8 flex items-baseline justify-between">
+              <div className="py-6 border-y border-white/10 mb-8 flex items-end justify-between">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1">
+                  <span className="text-[10px] uppercase tracking-widest text-neutral-500 block mb-1">
                     Стоимость за единицу
                   </span>
-                  <p className="text-3xl md:text-4xl font-mono text-white">
+                  <p className="text-3xl md:text-4xl text-white">
                     {product.price}
                   </p>
                 </div>
@@ -188,79 +197,80 @@ export const ProductPage = () => {
                 <button
                   type="button"
                   onClick={() => toggleFavorite(product.id)}
-                  className={`flex items-center gap-2 px-4 py-2.5 border text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 py-2.5 border text-xs uppercase tracking-wider transition-all cursor-pointer ${
                     isFav
                       ? "border-rose-400/50 bg-rose-950/30 text-rose-300"
                       : "border-white/10 hover:border-white/30 text-neutral-300 hover:text-white"
                   }`}
-                  aria-label={isFav ? "Удалить из избранного" : "Сохранить в избранное"}
+                  aria-label={
+                    isFav ? "Удалить из избранного" : "Сохранить в избранное"
+                  }
                 >
                   <Heart
                     className={`w-4 h-4 ${
                       isFav ? "fill-rose-400 text-rose-400" : "text-neutral-400"
                     }`}
                   />
-                  {isFav ? "В избранном" : "В избранное"}
                 </button>
               </div>
 
               {/* Description */}
               {product.description && (
                 <div className="mb-8">
-                  <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-2">
+                  <h4 className="text-xs uppercase tracking-widest text-[#bfb3a0] mb-3 flex items-center gap-2">
                     Описание концепта
                   </h4>
-                  <p className="text-sm text-neutral-300 leading-relaxed font-light">
+                  <p className="text-[15px] md:text-base text-[#e8e6e3] leading-relaxed font-normal">
                     {product.description}
                   </p>
                 </div>
               )}
 
               {/* Specifications Matrix */}
-              <div className="bg-[#141312] border border-white/10 p-6 space-y-4 mb-8">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-[#bfb3a0] mb-4 flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5" />
+              <div className="bg-[#151413] border border-white/15 p-6 md:p-7 space-y-4 mb-8">
+                <h4 className="text-xs uppercase tracking-widest text-[#bfb3a0] mb-4 flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-[#bfb3a0]" />
                   Спецификация предмета
                 </h4>
 
                 {product.dimensions && (
-                  <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2.5">
-                    <span className="font-mono text-neutral-500 uppercase tracking-wider">
+                  <div className="flex justify-between items-center text-sm border-b border-white/10 pb-3">
+                    <span className="text-neutral-400 uppercase tracking-wider text-xs font-medium">
                       Габариты
                     </span>
-                    <span className="text-neutral-200 text-right font-light">
+                    <span className="text-[#f2f0ec] text-right font-normal">
                       {product.dimensions}
                     </span>
                   </div>
                 )}
 
                 {product.materials && (
-                  <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2.5">
-                    <span className="font-mono text-neutral-500 uppercase tracking-wider">
+                  <div className="flex justify-between items-center text-sm border-b border-white/10 pb-3">
+                    <span className="text-neutral-400 uppercase tracking-wider text-xs font-medium">
                       Материалы
                     </span>
-                    <span className="text-neutral-200 text-right font-light">
+                    <span className="text-[#f2f0ec] text-right font-normal">
                       {product.materials}
                     </span>
                   </div>
                 )}
 
                 {product.origin && (
-                  <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2.5">
-                    <span className="font-mono text-neutral-500 uppercase tracking-wider">
+                  <div className="flex justify-between items-center text-sm border-b border-white/10 pb-3">
+                    <span className="text-neutral-400 uppercase tracking-wider text-xs font-medium">
                       Происхождение
                     </span>
-                    <span className="text-neutral-200 text-right font-light">
+                    <span className="text-[#f2f0ec] text-right font-normal">
                       {product.origin}
                     </span>
                   </div>
                 )}
 
-                <div className="flex justify-between items-center text-xs pt-1">
-                  <span className="font-mono text-neutral-500 uppercase tracking-wider">
+                <div className="flex justify-between items-center text-sm pt-1">
+                  <span className="text-neutral-400 uppercase tracking-wider text-xs font-medium">
                     Складской артикул
                   </span>
-                  <span className="font-mono text-[#bfb3a0]">
+                  <span className="text-[#bfb3a0] font-medium">
                     AUR-{(product.id * 142).toString().padStart(5, "0")}
                   </span>
                 </div>
@@ -269,16 +279,16 @@ export const ProductPage = () => {
               {/* Key Features Bullet points */}
               {product.features && product.features.length > 0 && (
                 <div className="mb-8">
-                  <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-3">
+                  <h4 className="text-xs uppercase tracking-widest text-[#bfb3a0] mb-3.5 flex items-center gap-2">
                     Ключевые преимущества
                   </h4>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-3">
                     {product.features.map((feat, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-3 text-xs text-neutral-300 font-light"
+                        className="flex items-start gap-3 text-sm md:text-[15px] text-[#e8e6e3] font-normal leading-relaxed"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#bfb3a0] mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#bfb3a0] mt-2 shrink-0 ring-4 ring-[#bfb3a0]/15" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -287,47 +297,14 @@ export const ProductPage = () => {
               )}
 
               {/* ACTION BUTTONS */}
-              <div className="space-y-3 pt-4 border-t border-white/10">
-                <button
-                  type="button"
-                  onClick={handleRequestQuote}
-                  className={`w-full py-4 text-xs font-mono uppercase tracking-[0.2em] font-medium transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                    requestSent
-                      ? "bg-emerald-600 text-white"
-                      : "bg-[#bfb3a0] text-black hover:bg-white"
-                  }`}
+              <div className="pt-4">
+                <CustomLink
+                  to={`${PATHS.home}#${PATHS.anchors.contacts}`}
+                  className="w-full py-4 bg-[#bfb3a0] text-black text-xs uppercase tracking-[0.2em] font-medium hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-lg shadow-black/40"
                 >
-                  {requestSent ? (
-                    <>
-                      <CheckCircle2 className="w-4 h-4" />
-                      Запрос оформлен! Менеджер свяжется с вами
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" />
-                      Запросить коммерческое предложение
-                    </>
-                  )}
-                </button>
-
-                <a
-                  href={`${PATHS.home}#${PATHS.anchors.contacts}`}
-                  className="w-full py-3.5 border border-white/20 text-xs font-mono uppercase tracking-[0.2em] text-neutral-300 hover:text-white hover:border-[#bfb3a0] transition-colors flex items-center justify-center gap-2"
-                >
-                  Связаться с декоратором
-                </a>
-              </div>
-
-              {/* SERVICE TRUST BADGES */}
-              <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/10 text-xs text-neutral-400 font-mono">
-                <div className="flex items-center gap-3">
-                  <Truck className="w-5 h-5 text-[#bfb3a0] shrink-0" />
-                  <span>Доставка и бережный подъем на объект</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <ShieldCheck className="w-5 h-5 text-[#bfb3a0] shrink-0" />
-                  <span>Гарантия качества и сертификаты</span>
-                </div>
+                  <span>Связаться с декоратором</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </CustomLink>
               </div>
             </div>
           </div>
@@ -340,7 +317,7 @@ export const ProductPage = () => {
               <div>
                 <div className="flex items-center gap-4 mb-3">
                   <span className="w-8 h-px bg-[#bfb3a0]" />
-                  <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
                     Рекомендации
                   </span>
                 </div>
@@ -350,7 +327,7 @@ export const ProductPage = () => {
               </div>
               <Link
                 to={PATHS.catalog}
-                className="hidden md:inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#bfb3a0] hover:text-white transition-colors"
+                className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#bfb3a0] hover:text-white transition-colors"
               >
                 Все предметы
                 <ArrowRight className="w-4 h-4" />
@@ -372,7 +349,7 @@ export const ProductPage = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#121110] via-transparent to-transparent opacity-80" />
                     <div className="absolute top-4 left-4">
-                      <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-neutral-300">
+                      <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-neutral-300">
                         {relProduct.category}
                       </span>
                     </div>
@@ -382,11 +359,11 @@ export const ProductPage = () => {
                       <h4 className="text-lg font-serif text-[#e3e1dc] group-hover:text-[#bfb3a0] transition-colors">
                         {relProduct.name}
                       </h4>
-                      <span className="text-xs font-mono text-[#bfb3a0]">
+                      <span className="text-xs text-[#bfb3a0]">
                         {relProduct.price}
                       </span>
                     </div>
-                    <p className="text-xs font-mono text-neutral-500 uppercase tracking-wider">
+                    <p className="text-xs text-neutral-500 uppercase tracking-wider">
                       {relProduct.specs}
                     </p>
                   </div>

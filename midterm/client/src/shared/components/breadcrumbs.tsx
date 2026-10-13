@@ -32,7 +32,7 @@ export const Breadcrumbs = ({
     >
       <nav
         aria-label="Навигация по разделам"
-        className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-widest text-neutral-400 flex-wrap"
+        className="flex items-center gap-2.5 text-xs uppercase tracking-widest text-neutral-400 flex-wrap"
       >
         {allItems.map((item, index) => {
           const isLast = index === allItems.length - 1;
@@ -68,7 +68,7 @@ export const Breadcrumbs = ({
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer shrink-0"
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer shrink-0"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Назад

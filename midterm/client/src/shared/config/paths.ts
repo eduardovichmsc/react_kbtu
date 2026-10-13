@@ -3,6 +3,7 @@ import type { NavLinkItem } from "../types";
 export const PATHS = {
   home: "/",
   catalog: "/catalog",
+  shop: "/#shop",
 
   anchors: {
     hero: "hero",
@@ -38,6 +39,7 @@ export const PATHS = {
 export const navLinks: NavLinkItem[] = [
   { name: "Главная", href: PATHS.home, isExternalRoute: true },
   { name: "Каталог", href: PATHS.catalog, isExternalRoute: true },
+  { name: "Коллекция", href: `${PATHS.home}#${PATHS.anchors.shop}` },
   { name: "Концепция", href: `${PATHS.home}#${PATHS.anchors.about}` },
   { name: "Прайс лист", href: `${PATHS.home}#${PATHS.anchors.priceList}` },
   { name: "Контакты", href: `${PATHS.home}#${PATHS.anchors.contacts}` },

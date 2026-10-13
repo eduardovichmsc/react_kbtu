@@ -1,7 +1,8 @@
 import { BASE } from "@/shared/config/base";
 import { motion } from "motion/react";
-import { ArrowUpRight, Copy, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { ProjectRequestForm } from "@/shared/components/project-request-form";
 
 export default function HomeContacts() {
   const [copied, setCopied] = useState(false);
@@ -27,7 +28,7 @@ export default function HomeContacts() {
         >
           <div className="flex items-center gap-4 mb-8">
             <span className="w-12 h-[1px] bg-[#bfb3a0]" />
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
               Contact
             </span>
           </div>
@@ -71,7 +72,7 @@ export default function HomeContacts() {
           </div>
         </motion.div>
 
-        {/* RIGHT COLUMN: SOCIAL LINKS LIST */}
+        {/* RIGHT COLUMN: CONTROLLED REQUEST FORM */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,41 +80,27 @@ export default function HomeContacts() {
           viewport={{ once: true }}
           className="flex flex-col justify-center"
         >
-          <div className="border-t border-white/10">
-            {BASE.contacts.socialLinks.map((social) => (
-              <a
-                key={social.id}
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between py-10 border-b border-white/10 hover:border-[#bfb3a0]/50 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center gap-6">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-neutral-400 group-hover:bg-[#bfb3a0] group-hover:text-black group-hover:border-[#bfb3a0] transition-all duration-300">
-                    <social.icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-3xl font-serif text-[#e3e1dc] group-hover:text-[#bfb3a0] transition-colors">
-                      {social.name}
-                    </h3>
-                    <p className="text-xs font-mono text-neutral-500 mt-1 tracking-wider uppercase group-hover:text-white/60 transition-colors">
-                      {social.handle}
-                    </p>
-                  </div>
-                </div>
+          <ProjectRequestForm />
 
-                <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
-                  <ArrowUpRight className="w-6 h-6 text-neutral-500 transition-transform duration-500 group-hover:text-[#bfb3a0] group-hover:-translate-y-1 group-hover:translate-x-1" />
-                </div>
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-12">
-            <p className="text-neutral-500 text-sm leading-relaxed max-w-md">
-              Мы всегда на связи в мессенджерах. Напишите нам, чтобы обсудить
-              индивидуальный заказ или запросить оптовый прайс-лист.
-            </p>
+          {/* Social links row underneath */}
+          <div className="mt-8 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+            <span className="text-xs uppercase tracking-widest text-neutral-500">
+              Быстрая связь в мессенджерах:
+            </span>
+            <div className="flex items-center gap-3">
+              {BASE.contacts.socialLinks.map((social) => (
+                <a
+                  key={social.id}
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 border border-white/10 text-xs text-neutral-300 hover:text-white hover:border-[#bfb3a0] transition-colors flex items-center gap-2"
+                >
+                  <social.icon className="w-3.5 h-3.5 text-[#bfb3a0]" />
+                  <span>{social.name}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

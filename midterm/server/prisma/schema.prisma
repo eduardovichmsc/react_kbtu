@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       String
+  priceValue  Int
+  category    String
+  specs       String
+  img         String
+  gallery     String   @default("[]") // JSON string of string[]
+  description String?
+  inStock     Boolean  @default(true)
+  featured    Boolean  @default(false)
+  dimensions  String?
+  materials   String?
+  origin      String?
+  features    String   @default("[]") // JSON string of string[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PricingPackage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     String
+  desc      String
+  features  String   @default("[]") // JSON string of string[]
+  img       String
+  isPopular Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ContactRequest {
+  id          Int      @id @default(autoincrement())
+  type        String   @default("QUOTE") // QUOTE, CONSULTATION, GENERAL
+  name        String?
+  phone       String?
+  email       String?
+  message     String?
+  productId   Int?
+  packageName String?
+  status      String   @default("PENDING") // PENDING, PROCESSED, ARCHIVED
+  createdAt   DateTime @default(now())
+}
+
+model AppConfig {
+  id          Int      @id @default(1)
+  logoText    String   @default("Aura")
+  email       String   @default("hello@aura.decor")
+  addressText String   @default("Almaty, Dostyk Ave 42")
+  addressTime String   @default("Mon-Fri, 10:00 — 19:00")
+  socialLinks String   @default("[]") // JSON array of social links
+  updatedAt   DateTime @updatedAt
+}

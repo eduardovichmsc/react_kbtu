@@ -1,5 +1,32 @@
-import { useScroll, useTransform, motion, type MotionValue } from "motion/react";
+import {
+  useScroll,
+  useTransform,
+  motion,
+  type MotionValue,
+} from "motion/react";
 import { useRef } from "react";
+
+const content = {
+  title: "Концепция",
+  body: `В мире визуального шума сложно найти истину. Мы не просто продаем декор — мы формируем _характер_ пространства. Будь то бутик-отель или шумный бар, наши предметы работают на создание целостного образа, который _врезается_ в память гостя. Мы — ваш куратор в мире предметного дизайна.`,
+  array: [
+    {
+      number: "01",
+      title: "Визуальный фильтр",
+      body: "Отсекаем лишнее",
+    },
+    {
+      number: "02",
+      title: "Складская программа",
+      body: "Готовность к запуску",
+    },
+    {
+      number: "03",
+      title: "Комплектация",
+      body: "Рестораны и отели",
+    },
+  ],
+};
 
 export const HomePhilosophy = () => {
   const container = useRef<HTMLElement>(null);
@@ -18,17 +45,17 @@ export const HomePhilosophy = () => {
         {/* LEFT COLUMN: Sticky Title & Visual */}
         <div className="lg:w-1/3 relative">
           <div className="lg:sticky lg:top-32 flex flex-col gap-8">
-            <div className="flex items-center gap-4">
+            {/* <div className="flex items-center gap-4">
               <span className="w-8 h-[1px] bg-[#bfb3a0]"></span>
-              <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#bfb3a0]">
-                Концепция
+              <h3 className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
+                {content.title}
               </h3>
-            </div>
+            </div> */}
 
             {/* Visual: Abstract/Architectural focus */}
             <motion.div
               style={{ opacity: scrollYProgress }}
-              className="hidden lg:block relative w-48 h-64 mt-8 grayscale opacity-60"
+              className="hidden lg:block relative w-80 h-96 mt-8 grayscale opacity-60"
             >
               <img
                 src="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?q=80&w=2652&auto=format&fit=crop"
@@ -36,7 +63,7 @@ export const HomePhilosophy = () => {
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-[#0e0d0c]/10" />
-              <span className="absolute -bottom-6 left-0 text-[10px] font-mono text-neutral-600">
+              <span className="absolute -bottom-6 left-0 text-[10px] text-neutral-600">
                 REF: ARCHIVE_VOL.2
               </span>
             </motion.div>
@@ -46,21 +73,13 @@ export const HomePhilosophy = () => {
         {/* RIGHT COLUMN: Interactive Text */}
         <div className="lg:w-2/3">
           <Paragraph scrollYProgress={scrollYProgress}>
-            В мире визуального шума сложно найти истину. Мы не просто продаем
-            декор — мы формируем _характер_ пространства. Будь то бутик-отель
-            или шумный бар, наши предметы работают на создание целостного
-            образа, который _врезается_ в память гостя. Мы — ваш куратор в мире
-            предметного дизайна.
+            {content.body}
           </Paragraph>
 
           <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10 pt-8">
-            <Stat number="01" label="Визуальный фильтр" sub="Отсекаем лишнее" />
-            <Stat
-              number="02"
-              label="Складская программа"
-              sub="Готовность к запуску"
-            />
-            <Stat number="03" label="Комплектация" sub="Рестораны и Отели" />
+            {content.array.map((e) => (
+              <Stat number={e.number} label={e.title} sub={e.body} />
+            ))}
           </div>
         </div>
       </div>
@@ -82,7 +101,11 @@ const Paragraph = ({
         const start = i / words.length;
         const end = start + 1 / words.length;
         return (
-          <Word key={`${word}-${i}`} range={[start, end]} progress={scrollYProgress}>
+          <Word
+            key={`${word}-${i}`}
+            range={[start, end]}
+            progress={scrollYProgress}
+          >
             {word}
           </Word>
         );
@@ -119,7 +142,6 @@ const Word = ({
 };
 
 const Stat = ({
-  number,
   label,
   sub,
 }: {
@@ -128,9 +150,7 @@ const Stat = ({
   sub?: string;
 }) => (
   <div>
-    <span className="block text-xs font-mono text-[#bfb3a0] mb-3">
-      /{number}
-    </span>
+    <span className="block text-xs text-[#bfb3a0] mb-3"></span>
     <h4 className="block text-sm uppercase tracking-widest text-white mb-1">
       {label}
     </h4>

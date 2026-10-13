@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import useFavoritesStore from "../store/favorites";
 import { allProducts } from "../data/products";
 import { PATHS } from "../config/paths";
+import { CustomLink } from "./custom-link";
 
 export function FavoritesDrawer() {
   const { ids, isOpen, closeDrawer, toggleFavorite } = useFavoritesStore();
@@ -60,7 +61,7 @@ export function FavoritesDrawer() {
                   <Link
                     to={PATHS.catalog}
                     onClick={closeDrawer}
-                    className="mt-4 text-xs font-mono uppercase tracking-widest text-[#bfb3a0] underline underline-offset-4 hover:text-white transition-colors"
+                    className="mt-4 text-xs uppercase tracking-widest text-[#bfb3a0] underline underline-offset-4 hover:text-white transition-colors"
                   >
                     Перейти в каталог
                   </Link>
@@ -92,10 +93,10 @@ export function FavoritesDrawer() {
                           {product.name}
                         </h4>
                       </Link>
-                      <p className="text-xs text-neutral-400 font-mono">
+                      <p className="text-xs text-neutral-400">
                         {product.category}
                       </p>
-                      <p className="text-xs font-mono text-[#bfb3a0] mt-1 font-medium">
+                      <p className="text-xs text-[#bfb3a0] mt-1 font-medium">
                         {product.price}
                       </p>
                     </div>
@@ -116,13 +117,13 @@ export function FavoritesDrawer() {
             {/* Footer with action */}
             {favoriteProducts.length > 0 && (
               <div className="p-6 border-t border-white/10 bg-[#0e0d0c]/50">
-                <a
-                  href={`${PATHS.home}#${PATHS.anchors.contacts}`}
+                <CustomLink
+                  to={`${PATHS.home}#${PATHS.anchors.contacts}`}
                   onClick={closeDrawer}
                   className="w-full py-4 bg-[#bfb3a0] text-black text-xs uppercase font-medium tracking-[0.2em] hover:bg-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Запросить наличие
-                </a>
+                  Связаться с декоратором
+                </CustomLink>
               </div>
             )}
           </motion.aside>
