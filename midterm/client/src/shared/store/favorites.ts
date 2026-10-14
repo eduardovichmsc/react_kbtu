@@ -1,11 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { Product } from "@/shared/types";
 
 interface FavoritesState {
+  items: Product[];
   ids: number[];
   count: number;
-  isOpen: boolean; // Состояние панели
-  toggleFavorite: (id: number) => void;
+  isOpen: boolean;
+  toggleFavorite: (product: Product) => void;
   openDrawer: () => void;
   closeDrawer: () => void;
 }
@@ -13,17 +15,24 @@ interface FavoritesState {
 const useFavoritesStore = create<FavoritesState>()(
   persist(
     (set) => ({
+      items: [],
       ids: [],
       count: 0,
-      isOpen: false, // По умолчанию закрыто
+      isOpen: false,
 
-      toggleFavorite: (id) =>
+      toggleFavorite: (product) =>
         set((state) => {
-          const exists = state.ids.includes(id);
-          const newIds = exists
-            ? state.ids.filter((i) => i !== id)
-            : [...state.ids, id];
-          return { ids: newIds, count: newIds.length };
+          const exists = state.ids.includes(product.id);
+          const newItems = exists
+            ? state.items.filter((i) => i.id !== product.id)
+            : [...state.items, product];
+          const newIds = newItems.map((i) => i.id);
+
+          return {
+            items: newItems,
+            ids: newIds,
+            count: newIds.length,
+          };
         }),
 
       openDrawer: () => set({ isOpen: true }),
@@ -31,8 +40,7 @@ const useFavoritesStore = create<FavoritesState>()(
     }),
     {
       name: "aura-favorites",
-      // Важно: не сохраняем isOpen в localStorage, иначе при обновлении страницы панель может остаться открытой
-      partialize: (state) => ({ ids: state.ids, count: state.count }),
+      partialize: (state) => ({ items: state.items, ids: state.ids, count: state.count }),
     },
   ),
 );

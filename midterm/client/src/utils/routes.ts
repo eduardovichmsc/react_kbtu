@@ -2,6 +2,7 @@ import { MainLayout } from "@/layouts/main-layout";
 import { HomePage } from "@/pages/home";
 import { CatalogPage } from "@/pages/catalog";
 import { ProductPage } from "@/pages/product";
+import { AddProductPage } from "@/pages/add-product";
 import { PATHS } from "@/shared/config/paths";
 
 export const ROUTES = [
@@ -15,6 +16,10 @@ export const ROUTES = [
       {
         path: PATHS.catalog,
         element: CatalogPage,
+      },
+      {
+        path: PATHS.addProduct,
+        element: AddProductPage,
       },
       {
         path: PATHS.product.pattern,

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { Heart, Menu, X, ArrowUpRight } from "lucide-react";
 import { useLenis } from "lenis/react";
-import useFavoritesStore from "../store/favorites";
-import { navLinks, PATHS } from "../config/paths";
-import CustomLink from "./custom-link";
+import useFavoritesStore from "@/shared/store/favorites";
+import { navLinks, PATHS } from "@/shared/config/paths";
+import CustomLink from "@/shared/components/custom-link";
 import { cn } from "@/utils/cn";
 
 export default function Header() {

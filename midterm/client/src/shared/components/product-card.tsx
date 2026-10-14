@@ -49,7 +49,7 @@ export const ProductCard = ({
         {/* FAVORITE BUTTON */}
         <button
           type="button"
-          onClick={() => toggleFavorite(product.id)}
+          onClick={() => toggleFavorite(product)}
           className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:text-rose-400 hover:border-white/30 transition-all cursor-pointer"
           aria-label={isFav ? "Удалить из избранного" : "Добавить в избранное"}
         >

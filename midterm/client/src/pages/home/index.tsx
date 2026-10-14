@@ -1,7 +1,6 @@
 import HomeContacts from "./components/contacts";
 import { HomeHero } from "./components/hero";
 import { HomePhilosophy } from "./components/philosophy";
-import { HomePricing } from "./components/pricing";
 import { HomeShop } from "./components/shop";
 
 export const HomePage = () => {
@@ -10,7 +9,6 @@ export const HomePage = () => {
       <HomeHero />
       <HomePhilosophy />
       <HomeShop />
-      <HomePricing />
       <HomeContacts />
     </div>
   );

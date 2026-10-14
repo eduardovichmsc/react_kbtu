@@ -3,6 +3,7 @@ import type { NavLinkItem } from "../types";
 export const PATHS = {
   home: "/",
   catalog: "/catalog",
+  addProduct: "/add-product",
   shop: "/#shop",
 
   anchors: {
@@ -31,7 +32,6 @@ export const PATHS = {
   socials: {
     instagram: "https://instagram.com",
     pinterest: "https://pinterest.com",
-    behance: "https://behance.net",
     telegram: "https://t.me",
   },
 } as const;
@@ -39,8 +39,15 @@ export const PATHS = {
 export const navLinks: NavLinkItem[] = [
   { name: "Главная", href: PATHS.home, isExternalRoute: true },
   { name: "Каталог", href: PATHS.catalog, isExternalRoute: true },
+  { name: "Добавить", href: PATHS.addProduct, isExternalRoute: true },
   { name: "Коллекция", href: `${PATHS.home}#${PATHS.anchors.shop}` },
   { name: "Концепция", href: `${PATHS.home}#${PATHS.anchors.about}` },
-  { name: "Прайс лист", href: `${PATHS.home}#${PATHS.anchors.priceList}` },
+  // { name: "Прайс лист", href: `${PATHS.home}#${PATHS.anchors.priceList}` },
   { name: "Контакты", href: `${PATHS.home}#${PATHS.anchors.contacts}` },
+];
+
+export const socialLinks = [
+  { name: "Instagram", href: PATHS.socials.instagram },
+  { name: "Pinterest", href: PATHS.socials.pinterest },
+  { name: "Telegram", href: PATHS.socials.telegram },
 ];

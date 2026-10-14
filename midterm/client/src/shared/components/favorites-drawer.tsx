@@ -1,17 +1,17 @@
 import { AnimatePresence, motion } from "motion/react";
 import { X, Heart, Trash2 } from "lucide-react";
 import { Link } from "react-router";
-import useFavoritesStore from "../store/favorites";
-import { allProducts } from "../data/products";
-import { PATHS } from "../config/paths";
-import { CustomLink } from "./custom-link";
+import useFavoritesStore from "@/shared/store/favorites";
+import { PATHS } from "@/shared/config/paths";
+import { CustomLink } from "@/shared/components/custom-link";
 
 export function FavoritesDrawer() {
-  const { ids, isOpen, closeDrawer, toggleFavorite } = useFavoritesStore();
-
-  const favoriteProducts = allProducts.filter((product) =>
-    ids.includes(product.id),
-  );
+  const {
+    items: favoriteProducts,
+    isOpen,
+    closeDrawer,
+    toggleFavorite,
+  } = useFavoritesStore();
 
   return (
     <AnimatePresence>
@@ -37,10 +37,7 @@ export function FavoritesDrawer() {
             {/* Header */}
             <div className="p-6 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Heart className="w-5 h-5 text-[#bfb3a0] fill-[#bfb3a0]" />
-                <h3 className="text-xl font-serif">
-                  Избранное ({favoriteProducts.length})
-                </h3>
+                <h3 className="text-xl font-serif">Избранное</h3>
               </div>
               <button
                 type="button"
@@ -57,7 +54,9 @@ export function FavoritesDrawer() {
               {favoriteProducts.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16 text-neutral-400">
                   <Heart className="w-12 h-12 stroke-[1] mb-4 text-neutral-600" />
-                  <p className="text-sm font-light">В избранном пока ничего нет</p>
+                  <p className="text-sm font-light">
+                    В избранном пока ничего нет
+                  </p>
                   <Link
                     to={PATHS.catalog}
                     onClick={closeDrawer}
@@ -102,7 +101,7 @@ export function FavoritesDrawer() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => toggleFavorite(product.id)}
+                      onClick={() => toggleFavorite(product)}
                       className="p-2 text-neutral-500 hover:text-rose-400 hover:bg-white/5 transition-colors cursor-pointer"
                       title="Удалить из избранного"
                       aria-label="Удалить из избранного"

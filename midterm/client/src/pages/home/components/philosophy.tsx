@@ -1,163 +1,92 @@
-import {
-  useScroll,
-  useTransform,
-  motion,
-  type MotionValue,
-} from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
+import { PATHS } from "@/shared/config/paths";
 
-const content = {
-  title: "Концепция",
-  body: `В мире визуального шума сложно найти истину. Мы не просто продаем декор — мы формируем _характер_ пространства. Будь то бутик-отель или шумный бар, наши предметы работают на создание целостного образа, который _врезается_ в память гостя. Мы — ваш куратор в мире предметного дизайна.`,
-  array: [
-    {
-      number: "01",
-      title: "Визуальный фильтр",
-      body: "Отсекаем лишнее",
-    },
-    {
-      number: "02",
-      title: "Складская программа",
-      body: "Готовность к запуску",
-    },
-    {
-      number: "03",
-      title: "Комплектация",
-      body: "Рестораны и отели",
-    },
-  ],
-};
+const FEATURES = [
+  {
+    number: "01",
+    title: "Визуальный фильтр",
+    description: "Отсекаем лишнее",
+  },
+  {
+    number: "02",
+    title: "Складская программа",
+    description: "Готовность к запуску",
+  },
+  {
+    number: "03",
+    title: "Комплектация",
+    description: "Рестораны и отели",
+  },
+];
 
 export const HomePhilosophy = () => {
-  const container = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start 0.9", "end 0.9"],
-  });
-
   return (
     <section
-      id="about"
-      ref={container}
-      className="relative w-full py-40 px-4 md:px-12 bg-[#0e0d0c] border-t border-white/5"
+      id={PATHS.anchors.about}
+      className="relative w-full py-24 md:py-36 px-4 md:px-12 bg-[#0e0d0c] border-t border-white/5"
     >
-      <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-0">
-        {/* LEFT COLUMN: Sticky Title & Visual */}
-        <div className="lg:w-1/3 relative">
-          <div className="lg:sticky lg:top-32 flex flex-col gap-8">
-            {/* <div className="flex items-center gap-4">
-              <span className="w-8 h-[1px] bg-[#bfb3a0]"></span>
-              <h3 className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
-                {content.title}
-              </h3>
-            </div> */}
-
-            {/* Visual: Abstract/Architectural focus */}
-            <motion.div
-              style={{ opacity: scrollYProgress }}
-              className="hidden lg:block relative w-80 h-96 mt-8 grayscale opacity-60"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?q=80&w=2652&auto=format&fit=crop"
-                alt="Texture and Form"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-[#0e0d0c]/10" />
-              <span className="absolute -bottom-6 left-0 text-[10px] text-neutral-600">
-                REF: ARCHIVE_VOL.2
-              </span>
-            </motion.div>
+      <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+          className="lg:w-1/3 flex flex-col gap-6"
+        >
+          <div className="flex items-center gap-4">
+            <span className="w-8 h-px bg-[#bfb3a0]" />
+            <span className="text-xs uppercase tracking-[0.2em] text-[#bfb3a0]">
+              Концепция
+            </span>
           </div>
-        </div>
 
-        {/* RIGHT COLUMN: Interactive Text */}
-        <div className="lg:w-2/3">
-          <Paragraph scrollYProgress={scrollYProgress}>
-            {content.body}
-          </Paragraph>
+          <div className="relative w-full max-w-sm h-80 md:h-96 grayscale contrast-125 opacity-80 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1487700160041-babef9c3cb55?q=80&w=2652&auto=format&fit=crop"
+              alt="Texture and Form"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[#0e0d0c]/20" />
+            <span className="absolute bottom-3 left-3 text-[10px] tracking-widest uppercase text-neutral-400 bg-black/60 px-2 py-1 backdrop-blur-xs">
+              Архив фактур
+            </span>
+          </div>
+        </motion.div>
 
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10 pt-8">
-            {content.array.map((e) => (
-              <Stat number={e.number} label={e.title} sub={e.body} />
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="lg:w-2/3 flex flex-col justify-between"
+        >
+          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] leading-[1.25] font-light text-[#e3e1dc]">
+            В мире визуального шума сложно найти истину. Мы не просто продаем
+            декор — мы формируем{" "}
+            <span className="text-[#bfb3a0] font-serif italic">характер</span>{" "}
+            пространства. Будь то бутик-отель или шумный бар, наши предметы
+            работают на создание целостного образа, который{" "}
+            <span className="text-[#bfb3a0] font-serif italic">врезается</span>{" "}
+            в память гостя. Мы — ваш куратор в мире предметного дизайна.
+          </p>
+
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-white/10 pt-8">
+            {FEATURES.map((item) => (
+              <div key={item.number} className="flex flex-col gap-1.5">
+                <span className="text-xs font-mono text-[#bfb3a0] tracking-wider">
+                  {item.number}
+                </span>
+                <h4 className="text-sm uppercase tracking-widest text-white font-medium">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-neutral-400 tracking-wide">
+                  {item.description}
+                </p>
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
-
-const Paragraph = ({
-  children,
-  scrollYProgress,
-}: {
-  children: string;
-  scrollYProgress: MotionValue<number>;
-}) => {
-  const words = children.split(" ");
-  return (
-    <p className="text-3xl md:text-5xl lg:text-[3.5rem] leading-[1.15] font-light flex flex-wrap gap-x-3 gap-y-2">
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + 1 / words.length;
-        return (
-          <Word
-            key={`${word}-${i}`}
-            range={[start, end]}
-            progress={scrollYProgress}
-          >
-            {word}
-          </Word>
-        );
-      })}
-    </p>
-  );
-};
-
-const Word = ({
-  children,
-  range,
-  progress,
-}: {
-  children: string;
-  range: [number, number];
-  progress: MotionValue<number>;
-}) => {
-  const opacity = useTransform(progress, range, [0.1, 1]);
-  const isSpecial = children.includes("_");
-  const text = children.replaceAll("_", "");
-
-  return (
-    <span className="relative">
-      <motion.span
-        style={{ opacity }}
-        className={`transition-colors duration-200 ${
-          isSpecial ? "text-[#bfb3a0] font-serif italic" : "text-[#e3e1dc]"
-        }`}
-      >
-        {text}
-      </motion.span>
-    </span>
-  );
-};
-
-const Stat = ({
-  label,
-  sub,
-}: {
-  number: string;
-  label: string;
-  sub?: string;
-}) => (
-  <div>
-    <span className="block text-xs text-[#bfb3a0] mb-3"></span>
-    <h4 className="block text-sm uppercase tracking-widest text-white mb-1">
-      {label}
-    </h4>
-    {sub && (
-      <p className="text-[10px] text-neutral-500 uppercase tracking-wide">
-        {sub}
-      </p>
-    )}
-  </div>
-);

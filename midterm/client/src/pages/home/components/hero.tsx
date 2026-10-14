@@ -11,14 +11,14 @@ const content = {
     line2: "Места",
   },
   description: {
-    primary: "Интерьер — это тихий язык вашего бренда.",
+    primary: "Интерьер - это тихий язык вашего бренда.",
     secondary: "Комплектация ресторанов, отелей и",
     highlight: "гастро-проектов",
     ending: "акцентным декором.",
   },
   cta: {
     text: "Посмотреть примеры",
-    link: PATHS.anchors.shop,
+    link: PATHS.shop,
   },
   image: {
     src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop",
@@ -135,7 +135,7 @@ export const HomeHero = () => {
             className="mt-12 flex items-center gap-4 group cursor-pointer w-fit"
           >
             <CustomLink
-              to={`/#${content.cta.link}`}
+              to={content.cta.link}
               className="flex items-center gap-4"
             >
               <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#bfb3a0] group-hover:border-[#bfb3a0] transition-all duration-500">

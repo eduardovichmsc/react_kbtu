@@ -3135,6 +3135,48 @@
       "featured": false,
       "createdAt": "2026-10-12T21:59:18.251Z",
       "updatedAt": "2026-10-12T21:59:18.251Z"
+    },
+    {
+      "name": "вайб ти фест",
+      "price": "1,337 ₸",
+      "priceValue": 1.337,
+      "category": "Декор",
+      "specs": "Примеры",
+      "img": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=800&auto=format&fit=crop",
+      "gallery": [
+        "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=800&auto=format&fit=crop"
+      ],
+      "description": "Примеры",
+      "dimensions": "H:186cm, D:50cm",
+      "materials": "Примеры",
+      "origin": "Казахстан",
+      "features": [],
+      "inStock": true,
+      "featured": false,
+      "id": 113,
+      "createdAt": "2026-10-14T16:32:50.104Z",
+      "updatedAt": "2026-10-14T16:32:50.104Z"
+    },
+    {
+      "name": "рнб клаб кз",
+      "price": "1 000 ₸",
+      "priceValue": 1000,
+      "category": "Декор",
+      "specs": "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg",
+      "img": "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg",
+      "gallery": [
+        "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg"
+      ],
+      "description": "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg",
+      "dimensions": "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg",
+      "materials": "https://i.pinimg.com/1200x/0e/c3/08/0ec308f60f07c2ef419f0eb1e61fc05c.jpg",
+      "origin": "Казахстан",
+      "features": [],
+      "inStock": true,
+      "featured": false,
+      "id": 114,
+      "createdAt": "2026-10-14T16:34:04.548Z",
+      "updatedAt": "2026-10-14T16:34:04.548Z"
     }
   ],
   "pricingPackages": [
