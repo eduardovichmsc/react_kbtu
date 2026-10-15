@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Refresher Task 0</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Task 0</h1>
+      <div class="answers">
+        <h2>Question / Answer:</h2>
+        <p>Some tasks are visible on console</p>
+        <h3>1 — Variables and Data Types</h3>
+        <p>
+          <strong>What is the difference between let and const?</strong><br />
+          let reassignable variable<br />
+          const is not.
+        </p>
+        <p>
+          <strong>What does typeof null return?</strong><br />
+          returns "object". Its bug.
+        </p>
+        <p>
+          <strong> What are JavaScript primitive types?</strong><br />
+          String, Number, BigInt, Boolean, Undefined, Null, Symbol.
+        </p>
+
+        <h3>5 — Values and References</h3>
+        <p>
+          <strong>What happens to the original if you change the copy?</strong
+          ><br />
+          The value in the original changes also.
+        </p>
+        <p>
+          <strong>Why?</strong><br />
+          Both variables point to same memory location.
+        </p>
+        <p>
+          <strong
+            >What happens when copying a nested object (address) using spread
+            (...) and changing the city?</strong
+          ><br />
+          Will be changed in the original object too.
+        </p>
+        <p>
+          <strong>Why?</strong><br />
+          The spread operator creates a shallow copy. Nested objects are still
+          passed by reference.
+        </p>
+
+        <h3>7 — Functions as Values</h3>
+        <p>
+          <strong>Can functions be stored in variables?</strong><br />
+          Yes.
+        </p>
+        <p>
+          <strong>Can they be passed to other functions?</strong><br />
+          Yes, thats called callbacks.
+        </p>
+        <p>
+          <strong>Difference between add and add():</strong><br />
+          add is a reference to the function itself (treating it as a value).
+          <br />add() with parentheses invokes (calls) the function, executing
+          its code and returning the result.
+        </p>
+
+        <h3>8 — Scope</h3>
+        <p>
+          Global scope are declared outside of any functions or blocks,
+          accessible from anywhere in the code.
+        </p>
+        <p>
+          Function scop declared inside a function, accessible only within that
+          specific function.
+        </p>
+        <p>
+          Block scope Variables declared inside curly braces {}. They are
+          accessible only within that block.
+        </p>
+        <p>
+          Difference between var, let, and const:<br />
+          var is function-scoped and ignores block boundaries. let and const are
+          strictly block-scoped.
+        </p>
+
+        <h3>9 — Closure</h3>
+        <p>
+          <strong
+            >Why can the inner function still access variables from the outer
+            function?</strong
+          ><br />
+          The inner function "remembers" the lexical environment in which it was
+          created, even after the outer function has finished.
+        </p>
+
+        <h3>10 — Destructuring, Spread and Rest</h3>
+        <p>
+          <strong>Difference between spread and rest:</strong> They use the same
+          syntax (<code>...</code>) but do different things. Spread unpacks an
+          array or object into individual elements. <br />Rest collects the
+          remaining elements into a single array.
+        </p>
+
+        <h3>11 — Optional Chaining and Default Values</h3>
+        <p>
+          <strong>Difference between || and ??:</strong><br />
+          The || operator is triggered by any falsy value. The ?? operator is
+          triggered only by null or undefined. For example, if a value is 0, the
+          || operator will replace it, whereas ?? will keep the 0.
+        </p>
+      </div>
+    </div>
+    <script src="src/scripts.js"></script>
+  </body>
+</html>

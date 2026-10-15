@@ -8,6 +8,16 @@ import type {
   CreateProductPayload,
 } from "@/shared/types";
 
+export type {
+  Product,
+  PricingPackage,
+  ProductsQueryParams,
+  PaginatedProductsResponse,
+  CategorySummary,
+  ContactRequestPayload,
+  CreateProductPayload,
+};
+
 const envUrl = (
   import.meta.env.VITE_API_URL || "http://localhost:4000/api"
 ).trim();

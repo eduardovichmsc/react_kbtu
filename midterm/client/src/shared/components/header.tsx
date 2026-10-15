@@ -131,7 +131,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             variants={menuVariants}
@@ -177,7 +177,7 @@ export default function Header() {
             </div>
           </motion.div>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
     </>
   );
 }

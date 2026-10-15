@@ -123,8 +123,7 @@ export const parseDestination = (
   // /catalog?page=1#filters"
   // "/#shop"
   const [pathAndQuery, hash = ""] = destStr.split("#");
-  co;
-  nst[(pathname, (search = ""))] = pathAndQuery.split("?");
+  const [pathname, search = ""] = pathAndQuery.split("?");
 
   return {
     isExternal: false,

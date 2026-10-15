@@ -1,5 +1,5 @@
 import { useState, useId } from "react";
-import { Loader2, RotateCcw, Plus } from "lucide-react";
+import { Loader2, RotateCcw } from "lucide-react";
 import { api } from "@/shared/api";
 import type { Product, CreateProductPayload, FormValues } from "@/shared/types";
 
