@@ -40,7 +40,11 @@ const useFavoritesStore = create<FavoritesState>()(
     }),
     {
       name: "aura-favorites",
-      partialize: (state) => ({ items: state.items, ids: state.ids, count: state.count }),
+      partialize: (state) => ({
+        items: state.items,
+        ids: state.ids,
+        count: state.count,
+      }),
     },
   ),
 );

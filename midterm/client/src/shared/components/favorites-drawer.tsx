@@ -117,11 +117,11 @@ export function FavoritesDrawer() {
             {favoriteProducts.length > 0 && (
               <div className="p-6 border-t border-white/10 bg-[#0e0d0c]/50">
                 <CustomLink
-                  to={`${PATHS.home}#${PATHS.anchors.contacts}`}
+                  // to={`${PATHS.home}#${PATHS.anchors.contacts}`}
                   onClick={closeDrawer}
                   className="w-full py-4 bg-[#bfb3a0] text-black text-xs uppercase font-medium tracking-[0.2em] hover:bg-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Связаться с декоратором
+                  Заказать
                 </CustomLink>
               </div>
             )}

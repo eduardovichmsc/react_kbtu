@@ -340,13 +340,9 @@ export const AddProductForm = ({ onSuccess, onError }: AddProductFormProps) => {
           {isSubmitting ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Сохранение...
             </>
           ) : (
-            <>
-              <Plus className="w-4 h-4" />
-              Опубликовать предмет
-            </>
+            <>Опубликовать предмет</>
           )}
         </button>
       </div>

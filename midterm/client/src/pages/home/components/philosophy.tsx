@@ -46,10 +46,6 @@ export const HomePhilosophy = () => {
               alt="Texture and Form"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-[#0e0d0c]/20" />
-            <span className="absolute bottom-3 left-3 text-[10px] tracking-widest uppercase text-neutral-400 bg-black/60 px-2 py-1 backdrop-blur-xs">
-              Архив фактур
-            </span>
           </div>
         </motion.div>
 

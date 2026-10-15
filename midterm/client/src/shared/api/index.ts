@@ -8,21 +8,15 @@ import type {
   CreateProductPayload,
 } from "@/shared/types";
 
-export type {
-  ProductsQueryParams,
-  PaginatedProductsResponse,
-  CategorySummary,
-  ContactRequestPayload,
-  CreateProductPayload,
-};
-
 const envUrl = (
   import.meta.env.VITE_API_URL || "http://localhost:4000/api"
 ).trim();
 
-export const API_BASE_URL = envUrl.endsWith("/api")
-  ? envUrl
-  : `${envUrl.replace(/\/+$/, "")}/api`;
+// export const API_BASE_URL = envUrl.endsWith("/api")
+//   ? envUrl
+//   : `${envUrl.replace(/\/+$/, "")}/api`;
+
+export const API_BASE_URL = envUrl;
 
 export async function getProducts(
   params: ProductsQueryParams = {},

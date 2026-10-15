@@ -140,7 +140,7 @@ export default function HomeContacts() {
                     </span>
                   </button>
 
-                  <AnimatePresence initial={false}>
+                  <AnimatePresence mode="wait" initial={false}>
                     {isOpen && (
                       <motion.div
                         initial={{ opacity: 0, height: 0 }}

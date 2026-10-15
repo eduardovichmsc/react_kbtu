@@ -21,7 +21,7 @@ const content = {
     link: PATHS.shop,
   },
   image: {
-    src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2670&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b",
     alt: "Restaurant & Lounge Atmosphere",
   },
   badge: {
