@@ -1,14 +1,16 @@
 import { Link } from "react-router";
-import heroImg from "@/assets/hero.png";
 
 export const HomeHero = () => (
   <section className="bg-white border border-gray-200 p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
     <div className="space-y-4">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-        Product Catalog &amp; Dashboard
+        Browse our collection of items
       </h1>
       <p className="text-gray-600 text-base leading-relaxed">
-        Browse our collection of items, inspect detailed specifications, and view live inventory metrics.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
       </p>
 
       <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -31,13 +33,6 @@ export const HomeHero = () => (
           About
         </Link>
       </div>
-    </div>
-    <div className="w-full md:w-72 flex justify-center shrink-0">
-      <img
-        src={heroImg}
-        alt="Catalog Preview"
-        className="max-h-48 object-contain"
-      />
     </div>
   </section>
 );

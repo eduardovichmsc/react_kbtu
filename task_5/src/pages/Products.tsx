@@ -43,9 +43,7 @@ export const Products = () => {
   useEffect(() => {
     fetchCategories()
       .then((items) => {
-        if (!ignore) {
-          setCategories(items);
-        }
+        setCategories(items);
       })
       .catch((err) => console.error("Could not load categories:", err));
   }, []);

@@ -72,10 +72,16 @@ export const ProductDetails = () => {
                     key={i}
                     onClick={() => setSelectedImage(img)}
                     className={`w-14 h-14 border p-1 bg-gray-50 shrink-0 cursor-pointer ${
-                      activeImage === img ? "border-blue-600 ring-2 ring-blue-100" : "border-gray-200"
+                      activeImage === img
+                        ? "border-blue-600 ring-2 ring-blue-100"
+                        : "border-gray-200"
                     }`}
                   >
-                    <img src={img} alt={`Preview ${i + 1}`} className="w-full h-full object-contain" />
+                    <img
+                      src={img}
+                      alt={`Preview ${i + 1}`}
+                      className="w-full h-full object-contain"
+                    />
                   </button>
                 ))}
               </div>
@@ -207,15 +213,6 @@ export const ProductDetails = () => {
                 ))}
               </div>
             )}
-
-            <div className="pt-4 flex items-center gap-3 border-t border-gray-100">
-              <Link
-                to="/products"
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 transition-colors"
-              >
-                &larr; Back to All Items
-              </Link>
-            </div>
           </div>
         </div>
       </div>

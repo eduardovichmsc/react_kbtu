@@ -8,19 +8,19 @@ interface HighlightItem {
 const HIGHLIGHTS: HighlightItem[] = [
   {
     title: "Catalog",
-    body: "Browse products with search, category filtering, stock status, and sorting.",
+    body: "Lorem ipsum dolor ...",
   },
   {
     title: "Routing",
-    body: "Nested routes with URL query synchronization using useSearchParams and useParams.",
+    body: "Lorem ipsum dolor ...",
   },
   {
     title: "Dashboard",
-    body: "Real-time statistics computed from API data with interactive filtering.",
+    body: "Lorem ipsum dolor ...",
   },
   {
     title: "Performance",
-    body: "Pages are code-split and loaded on demand using React.lazy and Suspense.",
+    body: "Lorem ipsum dolor ...",
   },
 ];
 
