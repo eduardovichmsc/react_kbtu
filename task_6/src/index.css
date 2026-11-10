@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@import "./fonts.css";
+
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #f9fafb;
+    color: #111827;
+    min-height: 100vh;
+  }
+}
